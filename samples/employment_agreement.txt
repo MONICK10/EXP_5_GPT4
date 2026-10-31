@@ -1,0 +1,64 @@
+EMPLOYMENT AGREEMENT
+
+This Employment Agreement ("Agreement") is made and entered into on 15-06-2026 at Coimbatore, Tamil Nadu,
+
+BETWEEN
+
+Nimbus Softech Private Limited, a company incorporated under the Companies Act, 2013, having its registered office at 12, Avinashi Road, Coimbatore - 641018 (hereinafter referred to as the "Employer"),
+
+AND
+
+Mr. Karthik Raman, residing at 45, Gandhi Nagar, Tiruppur - 641603 (hereinafter referred to as the "Employee").
+
+The Employer and the Employee are collectively referred to as the "Parties".
+
+1. APPOINTMENT AND POSITION
+1.1 The Employer hereby appoints the Employee as "Associate Software Engineer" and the Employee accepts such appointment on the terms and conditions set out in this Agreement.
+1.2 The employment shall commence on 01-07-2026 ("Start Date").
+1.3 The Employee shall be on probation for a period of six (6) months from the Start Date. Upon satisfactory completion of probation, the Employee shall be confirmed in writing.
+
+2. DUTIES AND RESPONSIBILITIES
+2.1 The Employee shall perform all duties assigned by the reporting manager, including software development, testing, documentation and client support.
+2.2 The Employee shall devote full working time and attention to the business of the Employer and shall comply with all company policies, as amended from time to time.
+2.3 The Employee shall not engage in any other employment, consultancy or business activity during the term of employment without prior written consent of the Employer.
+
+3. TERM
+3.1 This Agreement shall remain in force for a period of twelve (12) months from the Start Date, i.e. until 30-06-2027, and may be renewed by mutual written agreement.
+
+4. COMPENSATION
+4.1 The Employee shall receive a gross salary of Rs. 50,000 (Rupees Fifty Thousand only) per month, payable on or before the 7th day of each following month.
+4.2 The Employee shall be eligible for an annual performance bonus of up to 10% of annual gross salary, at the sole discretion of the Employer.
+4.3 All payments shall be subject to deduction of applicable taxes, provident fund and other statutory deductions.
+
+5. WORKING HOURS AND LEAVE
+5.1 Normal working hours are 9:30 AM to 6:30 PM, Monday to Friday.
+5.2 The Employee shall be entitled to 18 days of paid leave per calendar year, in addition to public holidays declared by the Employer.
+
+6. CONFIDENTIALITY
+6.1 The Employee shall maintain strict confidentiality regarding all proprietary information, source code, client data, trade secrets and business plans obtained during the period of employment.
+6.2 The Employee shall not disclose such information to any third party without prior written authorization from the Employer, both during employment and for a period of two (2) years after termination.
+
+7. INTELLECTUAL PROPERTY
+7.1 All software, inventions, designs, documents and other work created by the Employee in the course of employment shall be the sole and exclusive property of the Employer.
+7.2 The Employee hereby assigns to the Employer all rights, title and interest in such intellectual property.
+
+8. NON-SOLICITATION
+8.1 For a period of twelve (12) months after leaving the Employer, the Employee shall not directly or indirectly solicit any client or employee of the Employer.
+
+9. TERMINATION
+9.1 Either Party may terminate this Agreement by giving thirty (30) days' written notice or salary in lieu of notice.
+9.2 During the probation period, either Party may terminate this Agreement with seven (7) days' written notice.
+9.3 The Employer may terminate employment immediately without notice in case of misconduct, fraud, breach of confidentiality or wilful negligence.
+9.4 On termination, the Employee shall return all company property, including laptop, ID card and documents.
+
+10. LIABILITY
+10.1 The Employee shall be liable for any loss caused to the Employer due to wilful misconduct or gross negligence.
+
+11. GOVERNING LAW AND DISPUTE RESOLUTION
+11.1 This Agreement shall be governed by the laws of India.
+11.2 Any dispute arising out of this Agreement shall first be resolved through mutual discussion. If unresolved within 30 days, the dispute shall be referred to arbitration in Coimbatore under the Arbitration and Conciliation Act, 1996. Courts at Coimbatore shall have exclusive jurisdiction.
+
+IN WITNESS WHEREOF, the Parties have signed this Agreement on the date first written above.
+
+For Nimbus Softech Private Limited                Employee
+(Authorised Signatory)                            (Karthik Raman)

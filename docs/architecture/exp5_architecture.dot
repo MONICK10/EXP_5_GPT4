@@ -1,0 +1,18 @@
+digraph G {
+  graph [rankdir=TB, fontname="Helvetica", fontsize=11, nodesep=0.35, ranksep=0.42, pad=0.25, bgcolor="white", splines=spline];
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11, fillcolor="#ffffff", color="#334155", penwidth=1.2, margin="0.18,0.07"];
+  edge [color="#475569", arrowsize=0.7, penwidth=1.1, fontname="Helvetica", fontsize=10];
+user [label="User", shape=oval, fillcolor="#e2e8f0"];
+llm [label="Ollama (Local LLM Server)\nLlama 3.2", shape=box3d, fillcolor="#fde68a"];
+
+ui [label="Web Interface (Flask + HTML/JS)", fillcolor="#fef3c7"];
+inp [label="Input Module\nUpload .txt/.pdf/.docx or paste"]; ext [label="Extraction Module\npypdf / python-docx"];
+pre [label="Preprocessing Module\nClean text, doc type, regex dates/amounts"]; ch [label="Chunking Module\nsplit into ~2500-char chunks"];
+prm [label="Prompt Module\nRole, Task, Constraint, Format"]; an [label="Analysis Module\nper-chunk extraction + merge"];
+cl [label="Clause Module\nkeyword detection + explanation"];
+subgraph cluster_o { label="Structured Analysis"; style="rounded,dashed"; color="#94a3b8"; fontname="Helvetica";
+  s1 [label="Summary"]; s2 [label="Key Clauses"]; s3 [label="Obligations"]; s4 [label="Dates & Payment"]; }
+save [label="Save Module", fillcolor="#dcfce7"]; out [label="saved/*.txt report", shape=cylinder, fillcolor="#dbeafe"];
+user -> ui -> inp -> ext -> pre -> ch -> prm -> an; pre -> cl; an -> llm; cl -> llm;
+llm -> s1; llm -> s2; llm -> s3; llm -> s4; s1 -> save; s2 -> save; s3 -> save; s4 -> save; save -> out;
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ex 5 · Legal Document Analyzer · URK23CS1167</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>:root { --accent: #b45309; --accent-soft: #fef3c7; }
+.report { font-family: Georgia, "Times New Roman", serif; font-size: 14.5px; }
+.report h3 { border-bottom: 1px solid var(--line); padding-bottom: 3px; }
+.chunk { border-left: 3px solid var(--accent); padding: 6px 10px; margin: 8px 0; background: #fafafa; font-size: 12.5px; white-space: pre-wrap; max-height: 120px; overflow: auto; }</style>
+</head>
+<body>
+{% include "_header.html" %}
+<main class="layout">
+  <section>
+    <div class="card" id="card-input">
+      <h2>Legal Document <span class="module-tag">Input Module</span></h2>
+      <p class="hint">Upload a contract (.txt, .pdf, .docx), pick a sample, or paste text.</p>
+      <label for="file">Upload file</label><input type="file" id="file" accept=".txt,.pdf,.docx">
+      <label for="sample">or Sample document</label>
+      <select id="sample"><option value="">-- none --</option>{% for s in samples %}<option>{{ s }}</option>{% endfor %}</select>
+      <label for="text">or Paste text</label><textarea id="text" placeholder="Paste contract text here"></textarea>
+      <div class="row">
+        <div><label for="dtype">Document Type</label><select id="dtype">{% for t in types %}<option>{{ t }}</option>{% endfor %}</select></div>
+        <div><label for="atype">Analysis Type</label><select id="atype">{% for a in analysis %}<option>{{ a }}</option>{% endfor %}</select></div>
+      </div>
+      <button id="btn-extract">1. Extract &amp; Preprocess</button>
+      <button id="btn-analyze" class="secondary" disabled>2. Analyze with LLM</button>
+    </div>
+    <div class="card hidden" id="card-extracted"><h2>Extracted Text <span class="module-tag">Extraction Module</span></h2><div class="out"></div></div>
+    <div class="card hidden" id="card-pre"><h2>Preprocessing &amp; Chunking <span class="module-tag">Preprocessing Module</span></h2><div class="out"></div></div>
+  </section>
+  <section>
+    <div class="card hidden" id="card-prompt"><h2>Prompt Generation <span class="module-tag">Prompt Module</span></h2>
+      <p class="hint">Prompt sent for chunk 1 (each chunk gets the same structure).</p><pre class="code out"></pre></div>
+    <div class="card hidden" id="card-summary"><h2>Document Summary <span class="module-tag">Summary Module</span></h2><div class="out"></div></div>
+    <div class="card hidden" id="card-clauses"><h2>Key Clauses <span class="module-tag">Clause Module</span></h2><div class="out"></div></div>
+    <div class="card hidden" id="card-obligations"><h2>Obligations, Payment &amp; Dates <span class="module-tag">Analysis Module</span></h2><div class="out"></div></div>
+    <div class="card hidden" id="card-report">
+      <h2>Structured Legal Analysis <span class="module-tag">Complete Report</span></h2>
+      <button id="btn-save">Save Report</button>
+      <div class="out report"></div>
+    </div>
+    <div class="card hidden" id="card-saved"><h2>Report Saved <span class="module-tag">Save Module</span></h2><div class="out"></div></div>
+  </section>
+</main>
+<footer>Monick S · URK23CS1167 · Karunya Institute of Technology and Sciences</footer>
+<script src="/static/ui.js"></script>
+<script>
+const S = {};
+const list = (a) => a && a.length ? "<ul>" + a.map((x) => `<li>${esc(x)}</li>`).join("") + "</ul>" : "<p>-</p>";
+
+$("#btn-extract").onclick = (e) => withLoading(e.target, async () => {
+  const fd = new FormData();
+  if ($("#file").files[0]) fd.append("file", $("#file").files[0]);
+  fd.append("sample", $("#sample").value); fd.append("text", $("#text").value); fd.append("doc_type", $("#dtype").value);
+  const r = await fetch("/api/extract", { method: "POST", body: fd });
+  const d = await r.json();
+  if (!r.ok) { toast(d.error, true); return; }
+  Object.assign(S, d);
+  showCard("card-extracted", `<div class="kv"><div>File</div><div>${esc(d.file_name)}</div></div><pre class="code">${esc(d.raw_preview)}${d.chars > 1500 ? "\n..." : ""}</pre>`);
+  showCard("card-pre", `<div class="kv"><div>Detected type</div><div><span class="badge">${esc(d.doc_type)}</span></div>
+    <div>Characters</div><div>${d.chars}</div><div>Words</div><div>${d.words}</div><div>Approx. pages</div><div>${d.pages}</div>
+    <div>Cleaned</div><div>${d.removed_chars} extra characters removed</div>
+    <div>Dates (regex)</div><div>${esc(d.facts.dates.join(", ") || "-")}</div><div>Amounts (regex)</div><div>${esc(d.facts.amounts.join(", ") || "-")}</div>
+    <div>Durations (regex)</div><div>${esc(d.facts.durations.join(", ") || "-")}</div></div>
+    <p><b>${d.chunks.length} chunk(s)</b> created for the LLM:</p>` + d.chunks.map((c, i) => `<div class="chunk"><b>Chunk ${i + 1}</b> (${c.length} chars)\n${esc(c.slice(0, 260))}...</div>`).join(""));
+  $("#btn-analyze").disabled = false;
+});
+
+$("#btn-analyze").onclick = (e) => withLoading(e.target, async () => {
+  const type = $("#atype").value;
+  const r = await api("/api/analyze", { chunks: S.chunks, doc_type: S.doc_type, analysis_type: type });
+  Object.assign(S, { analysis: r.analysis, summary: r.summary });
+  showCard("card-prompt"); $("#card-prompt pre").textContent = r.prompt;
+  showCard("card-summary", md(r.summary));
+  const a = r.analysis;
+  if (type === "Complete" || type === "Obligations") {
+    showCard("card-obligations", `<h3>Obligations</h3>` + table(a.obligations, [["party", "Party"], ["obligation", "Obligation"]]) +
+      `<h3>Payment terms</h3>${list(a.payment_terms)}<h3>Important dates</h3>` + table(a.important_dates, [["date", "Date"], ["event", "Event"]]));
+  }
+  S.clauses = [];
+  if (type === "Complete" || type === "Clauses") {
+    const c = await api("/api/clauses", { text: S.text, doc_type: S.doc_type }); S.clauses = c.clauses;
+    showCard("card-clauses", table(c.clauses, [["name", "Clause", (x) => `<b>${esc(x.name)}</b>`],
+      ["explanation", "In simple words", (x) => esc(x.explanation) + `<br><small style="color:var(--muted)">“${esc(x.text.slice(0, 160))}”</small>`],
+      ["importance", "Importance", (x) => `<span class="badge ${x.importance === "High" ? "neg" : x.importance === "Low" ? "neu" : ""}">${esc(x.importance)}</span>`]]));
+  }
+  showCard("card-report", `<h3>LEGAL DOCUMENT ANALYSIS</h3><div class="kv"><div>Document Type</div><div>${esc(S.doc_type)}</div>
+    <div>Parties</div><div>${esc(a.parties.join(" and ") || "-")}</div><div>Purpose</div><div>${esc(a.purpose || "-")}</div>
+    <div>Duration</div><div>${esc(a.duration || "-")}</div><div>Confidentiality</div><div>${esc(a.confidentiality || "-")}</div>
+    <div>Governing Law</div><div>${esc(a.governing_law || "-")}</div></div>
+    <h3>Key Obligations</h3>${list(a.obligations.map((o) => (o.party ? o.party + ": " : "") + o.obligation))}
+    <h3>Payment</h3>${list(a.payment_terms)}<h3>Termination</h3>${list(a.termination)}
+    <h3>Important Dates</h3>${list(a.important_dates.map((d) => d.date + " – " + d.event))}
+    <h3>Potentially Important Clauses</h3>${list(S.clauses.map((c) => c.name))}
+    <h3>Summary</h3>${md(r.summary)}
+    <div class="notice warn">Disclaimer: AI-generated analysis for understanding only. Not legal advice.</div>`);
+});
+
+$("#btn-save").onclick = (e) => withLoading(e.target, async () => {
+  const r = await api("/api/save", { file_name: S.file_name, doc_type: S.doc_type, analysis: S.analysis, clauses: S.clauses, summary: S.summary });
+  showCard("card-saved", `<div class="notice ok">✔ Analysis report saved successfully</div><div class="kv"><div>File</div><div>${esc(r.file)}</div><div>Size</div><div>${r.size} bytes</div></div>`);
+});
+</script>
+</body>
+</html>

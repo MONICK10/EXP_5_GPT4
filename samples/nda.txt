@@ -1,0 +1,47 @@
+MUTUAL NON-DISCLOSURE AGREEMENT
+
+This Mutual Non-Disclosure Agreement ("Agreement") is entered into on 05-09-2026 ("Effective Date")
+
+BETWEEN
+
+GreenLeaf Agritech LLP, having its office at 8, Race Course Road, Coimbatore - 641018 ("GreenLeaf"),
+
+AND
+
+DataPulse Analytics Private Limited, having its office at 221, OMR, Chennai - 600097 ("DataPulse").
+
+GreenLeaf and DataPulse are each a "Party" and together the "Parties".
+
+1. PURPOSE
+The Parties wish to explore a possible business partnership to develop an AI-based crop disease prediction platform (the "Purpose"). In connection with the Purpose, each Party may disclose Confidential Information to the other.
+
+2. CONFIDENTIAL INFORMATION
+"Confidential Information" means any technical, financial or business information disclosed by one Party to the other, including datasets, algorithms, source code, pricing, customer lists and product roadmaps, whether in written, oral or electronic form, that is marked or reasonably understood to be confidential.
+
+3. OBLIGATIONS OF THE RECEIVING PARTY
+3.1 The Receiving Party shall use the Confidential Information solely for the Purpose.
+3.2 The Receiving Party shall not disclose Confidential Information to any third party except to its employees who need to know it for the Purpose and who are bound by similar confidentiality obligations.
+3.3 The Receiving Party shall protect the Confidential Information using at least the same degree of care it uses to protect its own confidential information, and no less than reasonable care.
+3.4 The Receiving Party shall promptly notify the Disclosing Party of any unauthorised use or disclosure.
+
+4. EXCLUSIONS
+Confidential Information does not include information that (a) is or becomes publicly available without breach of this Agreement; (b) was already known to the Receiving Party; (c) is independently developed without use of the Confidential Information; or (d) must be disclosed by law or court order, provided prompt notice is given.
+
+5. TERM AND TERMINATION
+5.1 This Agreement shall remain in effect for two (2) years from the Effective Date.
+5.2 Either Party may terminate this Agreement by giving fifteen (15) days' written notice.
+5.3 The confidentiality obligations shall survive for three (3) years after termination or expiry.
+
+6. RETURN OF INFORMATION
+Upon termination or on written request, the Receiving Party shall return or destroy all Confidential Information within ten (10) days and certify such destruction in writing.
+
+7. NO LICENCE
+Nothing in this Agreement grants any licence or ownership right in any intellectual property of the Disclosing Party.
+
+8. REMEDIES AND LIABILITY
+Any breach may cause irreparable harm. The Disclosing Party shall be entitled to seek injunctive relief in addition to damages. The total liability of either Party shall not exceed Rs. 10,00,000 (Rupees Ten Lakhs), except in case of wilful disclosure.
+
+9. GOVERNING LAW AND JURISDICTION
+This Agreement shall be governed by the laws of India. Courts at Chennai shall have exclusive jurisdiction.
+
+Signed by the authorised representatives of the Parties on the Effective Date.
